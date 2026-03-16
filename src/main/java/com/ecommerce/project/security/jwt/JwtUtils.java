@@ -49,12 +49,13 @@ public class JwtUtils {
     // ================= GENERATE COOKIE =================
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-
-        return ResponseCookie.from(jwtCookie, jwt)
+        ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt)
                 .path("/api")
                 .maxAge(24 * 60 * 60)
-                .httpOnly(true)
+                .httpOnly(false)
+                .secure(false)
                 .build();
+        return cookie;
     }
 
 
